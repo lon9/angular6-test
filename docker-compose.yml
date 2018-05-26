@@ -1,0 +1,15 @@
+version: "2"
+services:
+  app:
+    build: .
+    command: forever /app/server.js
+    environment:
+      - VIRTUAL_HOST=angular6-test.local
+    expose:
+      - "3000"
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
